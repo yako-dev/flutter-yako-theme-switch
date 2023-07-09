@@ -2,14 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class YakoThemeSwitch extends StatefulWidget {
+  /// false: dark theme (left position), true: light theme (right position)
   final bool enabled;
+
+  /// You can set the custom width of the switch
   final double width;
+
+  /// Just a callback function to get the changed state of the switch
   final Function({bool changed}) onChanged;
+
+  /// The background color of the switch when it is enabled
   final Color? enabledBackgroundColor;
+
+  /// The background color of the switch when it is disabled
   final Color? disabledBackgroundColor;
+
+  /// The color of the toggle when it is enabled
   final Color? enabledToggleColor;
+
+  /// The color of the toggle when it is disabled
   final Color? disabledToggleColor;
+
+  /// The duration of the animation
   final Duration animationDuration;
+
+  /// The border radius of the toggle. Try setting it to 4 and chech how circle now is square
   final double? enabledToggleBorderRadius;
 
   const YakoThemeSwitch({
