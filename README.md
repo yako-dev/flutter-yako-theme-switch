@@ -17,28 +17,39 @@ dependencies:
 
 ## Basic Usage:
 ```dart
-    return Container(
-      width: 200,
-      height: 200,
-      decoration: DiagonalDecoration(),
+    YakoThemeSwitch(
+      enabled: themeMode == ThemeMode.light,
+      onChanged: ({bool? changed}) {},
     );
 ```
 ## Advanced usage
 ```dart
-    decoration: const DiagonalDecoration(
-       lineColor: Colors.black,
-       backgroundColor: Colors.grey,
-       radius: Radius.circular(20),
-       lineWidth: 1,
-       distanceBetweenLines: 5,
-    )
+    YakoThemeSwitch(
+      enabled: themeMode == ThemeMode.light,
+      onChanged: ({bool? changed}) {},
+      width: 50,
+      enabledBackgroundColor: Colors.blue,
+      disabledBackgroundColor: Colors.red,
+      enabledToggleColor: Colors.white,
+      disabledToggleColor: Colors.white,
+      animationDuration: const Duration(milliseconds: 300),
+      enabledToggleBorderRadius: 8,
+    ),
 ```
 
 <br>
 
 
-Check out other Yako packages:
-[Badges](https://pub.dev/packages/badges),
-[Settings UI](https://pub.dev/packages/settings_ui),
-[Status Alert](https://pub.dev/packages/status_alert), 
-[Full Screen Menu](https://pub.dev/packages/full_screen_menu) and more to come!
+## Check out other Yako packages:
+
+[Badges](https://pub.dev/packages/badges)
+
+[Settings UI](https://pub.dev/packages/settings_ui)
+
+[Status Alert](https://pub.dev/packages/status_alert)
+
+[Full Screen Menu](https://pub.dev/packages/full_screen_menu)
+
+[Diagonal decoration](https://pub.dev/packages/diagonal_decoration) 
+
+and more to come!

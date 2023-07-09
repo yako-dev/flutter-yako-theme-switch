@@ -20,34 +20,22 @@ class _MainAppState extends State<MainApp> {
     return MaterialApp(
       darkTheme: ThemeData(scaffoldBackgroundColor: Colors.black),
       themeMode: themeMode,
-      home: GestureDetector(
-        onTap: () {
-          setState(() {
-            themeMode =
-                themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
-          });
-        },
-        child: Scaffold(
-          body: Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Transform.scale(
-                  scale: 4,
-                  child: YakoThemeSwitch(
-                    enabled: themeMode == ThemeMode.light,
-                    onChanged: ({bool? changed}) {
-                      if (changed != null) {
-                        setState(() {
-                          themeMode =
-                              changed ? ThemeMode.light : ThemeMode.dark;
-                        });
-                      }
-                    },
-                  ),
-                ),
-              ],
-            ),
+      home: Scaffold(
+        body: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              YakoThemeSwitch(
+                enabled: themeMode == ThemeMode.light,
+                onChanged: ({bool? changed}) {
+                  if (changed != null) {
+                    setState(() {
+                      themeMode = changed ? ThemeMode.light : ThemeMode.dark;
+                    });
+                  }
+                },
+              ),
+            ],
           ),
         ),
       ),
