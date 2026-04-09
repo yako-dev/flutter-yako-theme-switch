@@ -41,18 +41,6 @@ dependencies:
     ),
 ```
 
-## Migrating from v1.x
-
-The `onChanged` callback signature changed in v2.0.0:
-
-```dart
-// v1.x (old)
-onChanged: ({bool? changed}) { /* use changed */ }
-
-// v2.0.0 (new)
-onChanged: (bool value) { /* use value */ }
-```
-
 <br>
 
 

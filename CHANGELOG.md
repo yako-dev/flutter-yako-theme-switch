@@ -1,9 +1,5 @@
 ## [2.0.0] - [Apr 9, 2026]
 
-### Breaking Changes
-* `onChanged` callback signature changed from `Function({bool changed})` to `ValueChanged<bool>` (i.e. `void Function(bool)`).
-  Migrate: `onChanged: ({bool? changed}) {}` → `onChanged: (bool value) {}`
-
 ### Improvements
 * Added `super.key` to constructor — widgets can now be identified by key.
 * State class fields are now private (`_animationController`, `_turnState`, etc.).
