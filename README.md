@@ -11,7 +11,7 @@ Just a cool switch for your app's theme
 In your pubspec.yaml
 ```yaml
 dependencies:
-  yako_theme_switch: ^1.0.0
+  yako_theme_switch: ^2.0.0
 ```
 <br>
 
@@ -19,14 +19,18 @@ dependencies:
 ```dart
     YakoThemeSwitch(
       enabled: themeMode == ThemeMode.light,
-      onChanged: ({bool? changed}) {},
+      onChanged: (bool value) {
+        setState(() => themeMode = value ? ThemeMode.light : ThemeMode.dark);
+      },
     );
 ```
 ## Advanced usage
 ```dart
     YakoThemeSwitch(
       enabled: themeMode == ThemeMode.light,
-      onChanged: ({bool? changed}) {},
+      onChanged: (bool value) {
+        setState(() => themeMode = value ? ThemeMode.light : ThemeMode.dark);
+      },
       width: 50,
       enabledBackgroundColor: Colors.blue,
       disabledBackgroundColor: Colors.red,
