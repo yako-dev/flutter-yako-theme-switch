@@ -1,8 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+/// An animated switch for changing the theme of the app.
+///
+/// On the dark side ([enabled] is false) the thumb is a moon icon. On the
+/// light side ([enabled] is true) it fades into a filled circle, the sun.
+/// In right-to-left layouts the switch is mirrored, so the dark side is on
+/// the right.
+///
+/// The switch keeps its own on/off state, so it flips as soon as it is
+/// tapped and then calls [onChanged]. Changing [enabled] from the parent
+/// animates it to the new value without calling [onChanged].
 class YakoThemeSwitch extends StatefulWidget {
-  /// false: dark theme (left position), true: light theme (right position)
+  /// false: dark theme (left position), true: light theme (right position).
+  ///
+  /// The positions are mirrored in right-to-left layouts.
   final bool enabled;
 
   /// You can set the custom width of the switch
@@ -48,17 +60,24 @@ class YakoThemeSwitch extends StatefulWidget {
 
 class _YakoThemeSwitchState extends State<YakoThemeSwitch>
     with SingleTickerProviderStateMixin {
-  late AnimationController _animationController;
-  late Animation<double> _animation;
+  late final AnimationController _animationController;
+  late final CurvedAnimation _animation;
   late bool _turnState;
-  late Color _enabledBackgroundColor;
-  late Color _disabledBackgroundColor;
-  late Color _enabledToggleColor;
-  late Color _disabledToggleColor;
   double _animationValue = 0.0;
+
+  // Read from the widget on every build so new colors from the parent apply.
+  Color get _enabledBackgroundColor =>
+      widget.enabledBackgroundColor ?? Colors.grey.shade300;
+  Color get _disabledBackgroundColor =>
+      widget.disabledBackgroundColor ?? const Color(0xFF2E386E);
+  Color get _enabledToggleColor =>
+      widget.enabledToggleColor ?? Colors.amberAccent.shade700;
+  Color get _disabledToggleColor =>
+      widget.disabledToggleColor ?? const Color(0xFF70E2FB);
 
   @override
   void dispose() {
+    _animation.dispose();
     _animationController.dispose();
     super.dispose();
   }
@@ -66,15 +85,6 @@ class _YakoThemeSwitchState extends State<YakoThemeSwitch>
   @override
   void initState() {
     super.initState();
-
-    _enabledBackgroundColor =
-        widget.enabledBackgroundColor ?? Colors.grey.shade300;
-    _disabledBackgroundColor =
-        widget.disabledBackgroundColor ?? const Color(0xFF2E386E);
-    _enabledToggleColor =
-        widget.enabledToggleColor ?? Colors.amberAccent.shade700;
-    _disabledToggleColor =
-        widget.disabledToggleColor ?? const Color(0xFF70E2FB);
 
     _turnState = widget.enabled;
     _animationValue = widget.enabled ? 1.0 : 0.0;
@@ -102,6 +112,8 @@ class _YakoThemeSwitchState extends State<YakoThemeSwitch>
   void didUpdateWidget(YakoThemeSwitch oldWidget) {
     super.didUpdateWidget(oldWidget);
 
+    _animationController.duration = widget.animationDuration;
+
     if (oldWidget.enabled != widget.enabled) {
       _turnState = widget.enabled;
       if (_turnState) {
@@ -119,60 +131,70 @@ class _YakoThemeSwitchState extends State<YakoThemeSwitch>
       _enabledBackgroundColor,
       _animationValue,
     );
+    // The thumb starts at the start edge (the right edge in RTL) and moves
+    // towards the end edge, rolling in the direction it moves.
+    final double direction =
+        Directionality.of(context) == TextDirection.rtl ? -1.0 : 1.0;
 
-    return GestureDetector(
-      onTap: _toggle,
-      child: Container(
-        padding: const EdgeInsets.all(3),
-        width: widget.width,
-        decoration: BoxDecoration(
-          color: transitionColor,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Stack(
-          children: <Widget>[
-            Transform.translate(
-              offset: Offset((widget.width - 25) * _animationValue, 0),
-              child: Transform.rotate(
-                angle: _animationValue,
-                child: SizedBox(
-                  height: 18,
-                  width: 18,
-                  child: Stack(
-                    children: <Widget>[
-                      Center(
-                        child: Opacity(
-                          opacity: (1 - _animationValue).clamp(0.0, 1.0),
-                          child: SvgPicture.asset(
-                            'assets/dark_mode_switch_icon.svg',
-                            colorFilter: ColorFilter.mode(
-                              _disabledToggleColor,
-                              BlendMode.srcIn,
-                            ),
-                            height: 18,
-                            package: 'yako_theme_switch',
-                          ),
-                        ),
-                      ),
-                      Center(
-                        child: Opacity(
-                          opacity: _animationValue.clamp(0.0, 1.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(
-                                widget.enabledToggleBorderRadius ?? 20,
+    return Semantics(
+      toggled: _turnState,
+      child: GestureDetector(
+        onTap: _toggle,
+        child: Container(
+          padding: const EdgeInsets.all(3),
+          width: widget.width,
+          decoration: BoxDecoration(
+            color: transitionColor,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Stack(
+            children: <Widget>[
+              Transform.translate(
+                offset: Offset(
+                  (widget.width - 25) * _animationValue * direction,
+                  0,
+                ),
+                child: Transform.rotate(
+                  angle: _animationValue * direction,
+                  child: SizedBox(
+                    height: 18,
+                    width: 18,
+                    child: Stack(
+                      children: <Widget>[
+                        Center(
+                          child: Opacity(
+                            opacity: (1 - _animationValue).clamp(0.0, 1.0),
+                            child: SvgPicture.asset(
+                              'assets/dark_mode_switch_icon.svg',
+                              colorFilter: ColorFilter.mode(
+                                _disabledToggleColor,
+                                BlendMode.srcIn,
                               ),
-                              color: _enabledToggleColor,
+                              height: 18,
+                              package: 'yako_theme_switch',
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                        Center(
+                          child: Opacity(
+                            opacity: _animationValue.clamp(0.0, 1.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(
+                                  widget.enabledToggleBorderRadius ?? 20,
+                                ),
+                                color: _enabledToggleColor,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
