@@ -1,6 +1,6 @@
 name: yako_theme_switch
 description: Custom switch that looks good for changing the theme of the app
-version: 2.0.1
+version: 3.0.0
 repository: https://github.com/yako-dev/flutter-yako-theme-switch
 issue_tracker: https://github.com/yako-dev/flutter-yako-theme-switch/issues
 
@@ -16,13 +16,14 @@ screenshots:
     path: assets/showcase_animation.gif
 
 environment:
-  sdk: ">=3.4.0 <4.0.0"
-  flutter: ">=3.27.0"
+  sdk: ">=3.13.0 <4.0.0"
+  flutter: ">=3.47.0"
 
 dependencies:
   flutter:
     sdk: flutter
   flutter_svg: ^2.2.3
+  material_ui: ^1.4.0
 
 dev_dependencies:
   flutter_test:

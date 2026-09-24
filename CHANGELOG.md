@@ -1,3 +1,22 @@
+## [3.0.0] - [September 25, 2026]
+
+### Breaking Changes
+* Migrated to `package:material_ui`. Flutter 3.47 moved Material out of the
+  SDK into the `material_ui` package, so the switch now imports
+  `package:material_ui/material_ui.dart` instead of
+  `package:flutter/material.dart` and depends on `material_ui: ^1.4.0`. The
+  switch reads nothing from the Material theme (Material only supplies its
+  two default colors, `Colors.grey.shade300` and `Colors.amberAccent.shade700`),
+  so nothing visible changes, whether your app uses `material_ui` or still
+  uses `package:flutter/material.dart`. No `MaterialUiCompatibilityBridge` is
+  needed.
+* Minimum SDK raised to Dart 3.13.0 / Flutter 3.47.0 (from Dart 3.4.0 /
+  Flutter 3.27.0). Apps on older Flutter keep resolving the previous major,
+  2.x (2.0.1).
+
+### Maintenance
+* The example app and the tests import `package:material_ui` too.
+
 ## [2.0.1] - [September 25, 2026]
 
 ### Fixes

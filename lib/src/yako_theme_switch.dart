@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// An animated switch for changing the theme of the app.
 ///
@@ -133,8 +133,9 @@ class _YakoThemeSwitchState extends State<YakoThemeSwitch>
     );
     // The thumb starts at the start edge (the right edge in RTL) and moves
     // towards the end edge, rolling in the direction it moves.
-    final double direction =
-        Directionality.of(context) == TextDirection.rtl ? -1.0 : 1.0;
+    final double direction = Directionality.of(context) == TextDirection.rtl
+        ? -1.0
+        : 1.0;
 
     return Semantics(
       toggled: _turnState,
