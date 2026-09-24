@@ -1,4 +1,4 @@
-## [2.0.1] - [Unreleased]
+## [2.0.1] - [September 25, 2026]
 
 ### Fixes
 * New `enabledBackgroundColor`, `disabledBackgroundColor`, `enabledToggleColor`
