@@ -133,8 +133,9 @@ class _YakoThemeSwitchState extends State<YakoThemeSwitch>
     );
     // The thumb starts at the start edge (the right edge in RTL) and moves
     // towards the end edge, rolling in the direction it moves.
-    final double direction =
-        Directionality.of(context) == TextDirection.rtl ? -1.0 : 1.0;
+    final double direction = Directionality.of(context) == TextDirection.rtl
+        ? -1.0
+        : 1.0;
 
     return Semantics(
       toggled: _turnState,

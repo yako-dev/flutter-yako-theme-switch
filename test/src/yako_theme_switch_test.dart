@@ -8,11 +8,7 @@ void main() {
     testWidgets('renders without error', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: YakoThemeSwitch(
-              onChanged: (_) {},
-            ),
-          ),
+          home: Scaffold(body: YakoThemeSwitch(onChanged: (_) {})),
         ),
       );
 
@@ -22,11 +18,7 @@ void main() {
     testWidgets('starts in disabled (dark) state by default', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: YakoThemeSwitch(
-              onChanged: (_) {},
-            ),
-          ),
+          home: Scaffold(body: YakoThemeSwitch(onChanged: (_) {})),
         ),
       );
 
@@ -34,15 +26,13 @@ void main() {
       expect(find.byType(GestureDetector), findsOneWidget);
     });
 
-    testWidgets('starts in enabled (light) state when enabled: true',
-        (tester) async {
+    testWidgets('starts in enabled (light) state when enabled: true', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: YakoThemeSwitch(
-              enabled: true,
-              onChanged: (_) {},
-            ),
+            body: YakoThemeSwitch(enabled: true, onChanged: (_) {}),
           ),
         ),
       );
@@ -51,8 +41,9 @@ void main() {
       expect(find.byType(YakoThemeSwitch), findsOneWidget);
     });
 
-    testWidgets('calls onChanged with true when tapped from disabled state',
-        (tester) async {
+    testWidgets('calls onChanged with true when tapped from disabled state', (
+      tester,
+    ) async {
       bool? received;
 
       await tester.pumpWidget(
@@ -72,8 +63,9 @@ void main() {
       expect(received, isTrue);
     });
 
-    testWidgets('calls onChanged with false when tapped from enabled state',
-        (tester) async {
+    testWidgets('calls onChanged with false when tapped from enabled state', (
+      tester,
+    ) async {
       bool? received;
 
       await tester.pumpWidget(
@@ -93,53 +85,50 @@ void main() {
       expect(received, isFalse);
     });
 
-    testWidgets('responds to external enabled prop change via didUpdateWidget',
-        (tester) async {
-      bool switchEnabled = false;
-      bool? callbackValue;
+    testWidgets(
+      'responds to external enabled prop change via didUpdateWidget',
+      (tester) async {
+        bool switchEnabled = false;
+        bool? callbackValue;
 
-      await tester.pumpWidget(
-        StatefulBuilder(
-          builder: (context, setState) {
-            return MaterialApp(
-              home: Scaffold(
-                body: Column(
-                  children: [
-                    YakoThemeSwitch(
-                      enabled: switchEnabled,
-                      onChanged: (value) {
-                        callbackValue = value;
-                      },
-                    ),
-                    ElevatedButton(
-                      onPressed: () => setState(() => switchEnabled = true),
-                      child: const Text('Enable'),
-                    ),
-                  ],
+        await tester.pumpWidget(
+          StatefulBuilder(
+            builder: (context, setState) {
+              return MaterialApp(
+                home: Scaffold(
+                  body: Column(
+                    children: [
+                      YakoThemeSwitch(
+                        enabled: switchEnabled,
+                        onChanged: (value) {
+                          callbackValue = value;
+                        },
+                      ),
+                      ElevatedButton(
+                        onPressed: () => setState(() => switchEnabled = true),
+                        child: const Text('Enable'),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            );
-          },
-        ),
-      );
+              );
+            },
+          ),
+        );
 
-      await tester.tap(find.byType(ElevatedButton));
-      await tester.pumpAndSettle();
+        await tester.tap(find.byType(ElevatedButton));
+        await tester.pumpAndSettle();
 
-      expect(find.byType(YakoThemeSwitch), findsOneWidget);
-      // callbackValue not set — external prop change does not call onChanged
-      expect(callbackValue, isNull);
-    });
+        expect(find.byType(YakoThemeSwitch), findsOneWidget);
+        // callbackValue not set — external prop change does not call onChanged
+        expect(callbackValue, isNull);
+      },
+    );
 
     testWidgets('accepts custom width', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: YakoThemeSwitch(
-              width: 80,
-              onChanged: (_) {},
-            ),
-          ),
+          home: Scaffold(body: YakoThemeSwitch(width: 80, onChanged: (_) {})),
         ),
       );
 
@@ -204,10 +193,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: YakoThemeSwitch(
-              key: key,
-              onChanged: (_) {},
-            ),
+            body: YakoThemeSwitch(key: key, onChanged: (_) {}),
           ),
         ),
       );
@@ -215,17 +201,14 @@ void main() {
       expect(find.byKey(key), findsOneWidget);
     });
 
-    testWidgets('can be tapped multiple times alternating state',
-        (tester) async {
+    testWidgets('can be tapped multiple times alternating state', (
+      tester,
+    ) async {
       final received = <bool>[];
 
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: YakoThemeSwitch(
-              onChanged: received.add,
-            ),
-          ),
+          home: Scaffold(body: YakoThemeSwitch(onChanged: received.add)),
         ),
       );
 
@@ -240,14 +223,14 @@ void main() {
     });
     testWidgets('uses new colors passed by the parent', (tester) async {
       Widget build(Color background) => MaterialApp(
-            home: Scaffold(
-              body: YakoThemeSwitch(
-                enabled: true,
-                enabledBackgroundColor: background,
-                onChanged: (_) {},
-              ),
-            ),
-          );
+        home: Scaffold(
+          body: YakoThemeSwitch(
+            enabled: true,
+            enabledBackgroundColor: background,
+            onChanged: (_) {},
+          ),
+        ),
+      );
 
       const Color blue = Color(0xFF2196F3);
       const Color red = Color(0xFFF44336);
@@ -259,8 +242,9 @@ void main() {
       expect(_trackColor(tester), isSameColorAs(red));
     });
 
-    testWidgets('uses a new animationDuration passed by the parent',
-        (tester) async {
+    testWidgets('uses a new animationDuration passed by the parent', (
+      tester,
+    ) async {
       Widget build({required Duration duration, required bool enabled}) =>
           MaterialApp(
             home: Scaffold(
@@ -286,15 +270,14 @@ void main() {
       expect(tester.hasRunningAnimations, isFalse);
     });
 
-    testWidgets('reports its toggled state to accessibility services',
-        (tester) async {
+    testWidgets('reports its toggled state to accessibility services', (
+      tester,
+    ) async {
       final SemanticsHandle semantics = tester.ensureSemantics();
 
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: YakoThemeSwitch(onChanged: (_) {}),
-          ),
+          home: Scaffold(body: YakoThemeSwitch(onChanged: (_) {})),
         ),
       );
       expect(
@@ -318,29 +301,30 @@ void main() {
 
     for (final TextDirection textDirection in TextDirection.values) {
       testWidgets(
-          'keeps the thumb inside the track in ${textDirection.name} layouts',
-          (tester) async {
-        final bool rtl = textDirection == TextDirection.rtl;
-        for (final bool enabled in <bool>[false, true]) {
-          await tester.pumpWidget(
-            Directionality(
-              textDirection: textDirection,
-              child: Center(
-                child: YakoThemeSwitch(enabled: enabled, onChanged: (_) {}),
+        'keeps the thumb inside the track in ${textDirection.name} layouts',
+        (tester) async {
+          final bool rtl = textDirection == TextDirection.rtl;
+          for (final bool enabled in <bool>[false, true]) {
+            await tester.pumpWidget(
+              Directionality(
+                textDirection: textDirection,
+                child: Center(
+                  child: YakoThemeSwitch(enabled: enabled, onChanged: (_) {}),
+                ),
               ),
-            ),
-          );
-          await tester.pumpAndSettle();
+            );
+            await tester.pumpAndSettle();
 
-          final Rect track = tester.getRect(find.byType(YakoThemeSwitch));
-          final Offset thumb = tester.getCenter(_thumb);
-          expect(thumb.dx, greaterThanOrEqualTo(track.left + 9));
-          expect(thumb.dx, lessThanOrEqualTo(track.right - 9));
-          // Dark (false) sits on the start side: left in LTR, right in RTL.
-          final bool thumbOnRight = thumb.dx > track.center.dx;
-          expect(thumbOnRight, enabled != rtl, reason: 'enabled: $enabled');
-        }
-      });
+            final Rect track = tester.getRect(find.byType(YakoThemeSwitch));
+            final Offset thumb = tester.getCenter(_thumb);
+            expect(thumb.dx, greaterThanOrEqualTo(track.left + 9));
+            expect(thumb.dx, lessThanOrEqualTo(track.right - 9));
+            // Dark (false) sits on the start side: left in LTR, right in RTL.
+            final bool thumbOnRight = thumb.dx > track.center.dx;
+            expect(thumbOnRight, enabled != rtl, reason: 'enabled: $enabled');
+          }
+        },
+      );
     }
 
     testWidgets('disposes the animations it creates', (tester) async {
@@ -361,8 +345,10 @@ void main() {
       );
       await tester.pumpWidget(const SizedBox());
 
-      final List<Animation<Object?>> leaked =
-          created.difference(disposed).whereType<Animation<Object?>>().toList();
+      final List<Animation<Object?>> leaked = created
+          .difference(disposed)
+          .whereType<Animation<Object?>>()
+          .toList();
       expect(leaked, isEmpty);
     });
   });
