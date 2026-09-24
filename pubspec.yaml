@@ -1,11 +1,15 @@
 name: yako_theme_switch
 description: Custom switch that looks good for changing the theme of the app
-version: 2.0.0
+version: 2.0.1
 repository: https://github.com/yako-dev/flutter-yako-theme-switch
 issue_tracker: https://github.com/yako-dev/flutter-yako-theme-switch/issues
 
 topics:
   - ui
+  - widget
+  - switch
+  - theme
+  - dark-mode
 
 screenshots:
   - description: "Switch gif animation"
@@ -23,9 +27,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  mocktail: ^1.0.4
   flutter_lints: ^6.0.0
 
 flutter:
+  # Only the icon. The README gif in assets/ must not end up in users' apps.
   assets:
-    - assets/
+    - assets/dark_mode_switch_icon.svg

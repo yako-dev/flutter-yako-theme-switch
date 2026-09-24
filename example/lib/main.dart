@@ -27,12 +27,10 @@ class _MainAppState extends State<MainApp> {
             children: [
               YakoThemeSwitch(
                 enabled: themeMode == ThemeMode.light,
-                onChanged: ({bool? changed}) {
-                  if (changed != null) {
-                    setState(() {
-                      themeMode = changed ? ThemeMode.light : ThemeMode.dark;
-                    });
-                  }
+                onChanged: (bool value) {
+                  setState(() {
+                    themeMode = value ? ThemeMode.light : ThemeMode.dark;
+                  });
                 },
               ),
             ],

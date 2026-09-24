@@ -1,3 +1,6 @@
+# pub ignores .gitignore in a directory that has a .pubignore, so the rules below
+# start as a copy of .gitignore. Keep them in sync.
+
 # Miscellaneous
 *.class
 *.lock
@@ -105,3 +108,15 @@ lib/generated_plugin_registrant.dart
 # Symbolication / obfuscation related
 app.*.symbols
 app.*.map.json
+
+# Not part of the published package
+AGENTS.md
+CLAUDE.md
+PLAN.md
+/coverage/
+/example/coverage/
+/example/ios/Flutter/ephemeral/
+.history/
+.idea/
+
+# assets/showcase_animation.gif ships on purpose: pubspec `screenshots:` uses it.

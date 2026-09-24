@@ -1,3 +1,37 @@
+## [2.0.1] - [September 25, 2026]
+
+### Fixes
+* New `enabledBackgroundColor`, `disabledBackgroundColor`, `enabledToggleColor`
+  and `disabledToggleColor` values from the parent are now applied. They were
+  read only once, when the switch was created.
+* A new `animationDuration` from the parent is now used.
+* Right-to-left layouts: the switch is now mirrored, with the dark side on the
+  right. Before, the light-mode thumb was drawn outside the track.
+* Screen readers now announce the switch and whether it is on or off.
+* The internal `CurvedAnimation` is now disposed.
+* Apps no longer bundle the 685 KB README animation
+  (`assets/showcase_animation.gif`). Only the moon icon is declared as an asset.
+
+### Maintenance
+* Added `analysis_options.yaml` with `flutter_lints`. The package listed
+  `flutter_lints` but never applied it.
+* The library exports `src/yako_theme_switch.dart` instead of
+  `../src/yako_theme_switch.dart`.
+* Removed the unused `mocktail` dev dependency.
+* Added pub.dev topics: `widget`, `switch`, `theme`, `dark-mode`.
+* Added `.pubignore` and refreshed `.gitignore`.
+* CI: replaced the Very Good workflows with a CI workflow (analyze, format
+  check and tests on stable, a non-blocking beta job and a weekly run), a PR
+  title check, and a publish workflow that uses pub.dev automated publishing
+  (OIDC) with the Flutter SDK. The old publish workflow used Node 20 actions.
+* Example: fixed the `onChanged` callback, which no longer compiled with
+  2.0.0, and regenerated the platform folders so the app builds with current
+  Flutter, Gradle and Xcode.
+
+### Tests
+* Added regression tests for parent color and duration changes, RTL layout,
+  toggled semantics and animation disposal.
+
 ## [2.0.0] - [Apr 9, 2026]
 
 ### Improvements
