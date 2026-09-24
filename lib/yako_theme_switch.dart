@@ -1,4 +1,4 @@
 /// Custom switch that looks good for changing the theme of the app
-library yako_theme_switch;
+library;
 
-export '../src/yako_theme_switch.dart';
+export 'src/yako_theme_switch.dart';
