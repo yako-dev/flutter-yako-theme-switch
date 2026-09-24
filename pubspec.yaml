@@ -27,5 +27,6 @@ dev_dependencies:
   flutter_lints: ^6.0.0
 
 flutter:
+  # Only the icon. The README gif in assets/ must not end up in users' apps.
   assets:
-    - assets/
+    - assets/dark_mode_switch_icon.svg
