@@ -8,10 +8,12 @@ Just a cool switch for your app's theme
 
 
 ## Installing:
+Requirements: Flutter 3.47+ (`material_ui`). On older Flutter, use `yako_theme_switch: ^2.0.1`.
+
 In your pubspec.yaml
 ```yaml
 dependencies:
-  yako_theme_switch: ^2.0.0
+  yako_theme_switch: ^3.0.0
 ```
 <br>
 

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:yako_theme_switch/yako_theme_switch.dart';
 
 void main() {
