@@ -1,6 +1,6 @@
 name: yako_theme_switch
 description: Custom switch that looks good for changing the theme of the app
-version: 3.0.0
+version: 3.0.1
 repository: https://github.com/yako-dev/flutter-yako-theme-switch
 issue_tracker: https://github.com/yako-dev/flutter-yako-theme-switch/issues
 
